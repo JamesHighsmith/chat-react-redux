@@ -34,7 +34,6 @@ class Postform extends Component {
     .then(res => res.json())
     .then(data => console.log(data))
     // .then(data => this.setState({posts: data}));
-
   }
 
   render() {
