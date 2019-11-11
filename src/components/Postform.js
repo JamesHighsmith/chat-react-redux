@@ -1,4 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createPost } from '../actions/postActions';
 
 class Postform extends Component {
   constructor(props) {
@@ -23,17 +26,7 @@ class Postform extends Component {
       created_by:  this.state.created_by,
       message: this.state.message
     };
-
-    fetch('http://slack-server.elasticbeanstalk.com/messages', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(post)
-    })
-    .then(res => res.json())
-    .then(data => console.log(data))
-    // .then(data => this.setState({posts: data}));
+    this.props.createPost(post);
   }
 
   render() {
@@ -71,5 +64,8 @@ class Postform extends Component {
   }
 }
 
+Postform.propTypes = {
+  createPost: PropTypes.func.isRequired
+};
 
-export default Postform;
+export default connect(null, { createPost })(Postform);

@@ -11,4 +11,22 @@ export const fetchPosts = ()  => dispatch => {
         payload: posts
       })
     );
-}
+};
+
+export const createPost = postData => dispatch => {
+  console.log('creating post')
+  fetch('http://slack-server.elasticbeanstalk.com/messages', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(postData)
+    })
+    .then(res => res.json())
+    .then(post => 
+      dispatch({
+        type: NEW_POST,
+        payload: post
+      })
+    );
+};
